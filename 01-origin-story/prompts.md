@@ -24,6 +24,12 @@ prompt library built from your own questions.
 
 ### 1.
 
+can you tell me more about the different callouts offered to responders taken, turned down etc.
+
 ### 2.
 
+Tell me more about responders not being pinged at all, and the routing order changes in 4.2. How does the ranking work and the proximity weighting logic
+
 ### 3.
+
+yes look at the rook database and show me pre-responder pings, taken, turned down and missed weekly from before 12 Aug through now. Are there responders that went to no pings and if they are low acceptance or the ones far from incidents
