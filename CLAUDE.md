@@ -122,7 +122,7 @@ has not happened. Committed items change through Product, not directly.
   Scope tight. Motivated by Aunt Dot's request for alerts.
 
 ### Other notes
-- The wiki also has Research > Customer interviews (not yet read) and Rook database tools.
+- The wiki also has Research > Customer interviews (read mid-Oct; see below) and Rook database tools.
 - Priya: console filter persistence tickets are noise; don't let them eat month one.
 - Working style: separate what the sources state from what is inferred; flag stale or conflicting data.
 
@@ -131,8 +131,57 @@ has not happened. Committed items change through Product, not directly.
   The Undertow (Harborside), Vesper (Old Town). Pre-4.2 they got 10-14 pings a week; by week of 31 Aug, 0-1.
 - Not explained by low prior acceptance (69-81% vs 72-85% for the other 12) or by distance: their areas are
   among the busiest. Meteor Mite and The Gale share Eastgate and handler Kip, yet The Gale's pings rose.
-- What they share: 4-5 missed pings in the week of 10 Aug (others 1-3), then a collapse. Working hypothesis:
-  60s ping wait caused early misses, and the ranking change kept them low. Unproven; needs Wen Li's confirmation.
+- What they share: they missed pings on 12-16 Aug (Undertow 5, Farlight 3, Meteor Mite 4, Vesper 4), then a
+  collapse (about 3-5 pings/wk vs 11-14; share of first pings 28% -> 9%; the other 12 rose 20-40%).
 - After 12 Aug, pings to out-of-area responders rose from 14% to 39% of all pings (0% taken before, 36% since).
   This contradicts Priya's "seasonal" read, since the drop is concentrated, not spread.
 - Open: what happened in September (data ends 6 Sep); actual ranking weights; no distance data, only area names.
+
+### Updated hypothesis for 4.2 (revised mid-Oct; supersedes the earlier "60s wait then ranking" wording)
+Stated: 4.2 shipped 12 Aug with a 60s ping wait (was 90s) and proximity weighted up vs recent acceptance.
+Inferred: the two changes compounded. The 60s wait caused a system-wide rise in missed pings from 12 Aug; for
+the four responders, who missed a much larger share of their pings, the ranking turned early misses into a lasting
+loss of pings, partly by sending them out-of-area pings they can't take. Seasonality explains at most a small part
+of the volume dip, not the concentration. Unproven; needs Wen Li (ranking) and response-time data.
+- What changed from the earlier hypothesis: the break is exactly 12 Aug (10 and 11 Aug were clean: 0 and 1 missed;
+  then 7, 12, 8 on 12-14 Aug), not "the week of 10 Aug". The wait hit all 16 responders (missed pings ~2% -> 13-21%,
+  easing to 13% by week of 31 Aug), not just the four. The four missed 53% of their in-area pings vs 6% for the
+  other 12: unexplained, the biggest hole. Their out-of-area pings: 0% taken, 68% missed.
+- Callouts per week fell about 10-20% (138 -> 110/121/124/127), abruptly on 12 Aug, while pings/wk stayed flat (~160-175)
+  and pings per callout rose 1.23 -> 1.39. Callouts with a taker: 94.5% -> 88.9%. A release should not change incident
+  counts: ask Ravi/Wen whether counting changed on 12 Aug. Weekly reports should be cut at 12 Aug, not Mondays.
+- Confidence: wait -> missed pings high on timing/breadth (no response-time data); ranking -> starvation moderate;
+  why these four missed more unknown; seasonal mostly ruled out for the concentration.
+- Would change it: response times mostly under 30s (weakens the wait); Wen saying acceptance window is long or
+  proximity dominates regardless (changes ranking part); September data showing the four recovering.
+
+### Customer interviews and support tickets (read mid-Oct)
+- Interviews (2-5 Sep; Dot, Ambrose, Halloran, Kip; console-redesign research): lost callouts 3 of 4; handler can't tell a
+  callout is live or which responder 3 of 4; quiet/uneven work 2; small text 2; filter silent reset, tag legend, dark mode
+  1 each; Halloran's Supply complaints (requisition queue, failure reports, catalog search). Interviews state symptoms only;
+  none mentions 4.2, ping wait or ranking.
+- support_tickets (147, 29 Jun-7 Sep): quiet responders 30, console features 32, gear/Supply 24, saved filters 18,
+  callout gone 15, account/access 14, display comfort 8, duplicate notifications 6. Nothing in the lost-callout or quiet
+  groups before 12 Aug (first 12 Aug and 17 Aug); all still open. Tickets ran 5-8/wk, then 20, 27, 32, 25 (about 3-4x),
+  not recovering by 31 Aug. Lost:quiet is 15:30, matching Nadia's one-third / two-thirds.
+- Piles are nearly different people: Dot, Kip, Halloran filed 0 tickets, Ambrose 1; heavy filers (Desmond Okafor 21,
+  Linda Pruitt 19, Simone Fischer 15, Yusuf Demir 14) were not interviewed. Worth asking Sofia/Nadia about follow-up
+  calls with Desmond (The Undertow) and Linda (Farlight).
+- Loud in interviews, rare in tickets: handler wanting to be told a callout is live (2 tickets, alert sound only), small
+  text (2). Heavy in tickets, absent from interviews: console feature gaps, gear logistics, account/access, duplicate
+  notifications. Disagreements: Halloran praises maintenance scheduling vs tickets 3054/3109 (booked marathon day);
+  Ambrose's near-miss is "two weeks ago" in interview but "yesterday evening" (12 Aug) in ticket 3043.
+- Caveat: several tickets repeat interview wording and one another almost verbatim, so the sources may not be independent;
+  ticket counts rest on my own grouping.
+
+### Ping checks run mid-Oct (matched peers, ping order, callouts by area)
+- Matched peers: in 12-18 Aug, every responder with 4+ missed pings collapsed (Undertow 6, Farlight 4, Meteor Mite 4,
+  Vesper 4); nobody with 3 or fewer did (Nightwell, Stormwrack 3 each). Looks like a threshold in the ranking: inferred, small numbers.
+- Ping order: the four got 40 first pings/wk before and 11 after (-72%); the other 12 went 103 -> 112. When the four are
+  pinged first they miss 28 of 40 (70%) vs 66 of 400 (16.5%) for the others. Biggest unexplained number.
+- New candidate, untested: the four may be habitually slower answerers whom a 90s wait hid and a 60s wait exposes.
+  Needs response times from Ravi (none in the database).
+- Callouts fell in 14 of 15 areas (only Southport flat); the four's areas fell just 9-17%. Northfield (-31%) and Westbury
+  (-30%), Ashgrove's and Halfmoon's areas, likely explain their milder dips. Callout types were not analysed (free text).
+- Next asks: Ravi for response times (the four vs the rest, before/after 12 Aug), September data, and whether callout
+  counting changed on 12 Aug; Wen for the missed-ping threshold, window, and why out-of-area pings were never taken pre-4.2.
