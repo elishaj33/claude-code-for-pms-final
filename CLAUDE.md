@@ -199,3 +199,21 @@ of the volume dip, not the concentration. Unproven; needs Wen Li (ranking) and r
 - Working summary sentence, hedged: the shorter wait made everyone miss more; responders with about 4+ misses in the first week
   then lost most pings and nearly all they still got were missed; ranking as the cause is inferred, not confirmed.
 - Still open: response times and callout-counting change (Ravi), miss threshold (Wen), calls with Aunt Dot and Kip via Sofia/Nadia.
+
+- The routing code (00-rook/code/dispatch-routing, read in full): ranking score = 0.60 travel time + 0.25 recent acceptance + 0.15
+  skills (was 0.45/0.40/0.15 before 4.2); 60s wait in config.py. history.py: yes +0.08, a "no" or a miss -0.12 (original code treats
+  them the same), floor 0, ceiling 1, start 0.5, held in memory only, no way back up except a yes (a 2019 TODO, no code). A responder
+  needs about 60% taken just to hold steady. Several functions (phone push, availability, travel time) are empty in this copy.
+- Replaying the real pings through those rules: the four hit zero between 21 and 29 Aug, nobody else fell below 0.28; misses were 77%
+  of the four's lost points after 12 Aug, and out-of-area pings (never taken before 4.2) another 51%. Cheaper misses (0.03) or ignoring
+  out-of-area pings each lift the four to about 0.5-0.6, both together to 0.84; easing scores back toward 0.5 alone does not help.
+  An approximation: it uses real outcomes, ignores real travel times, and assumes no restart.
+- Marcus's 14 Aug question (does the 4.2 ranking change apply to responders who turn jobs down): same weights apply to everyone, no
+  new/existing distinction anywhere in code or config, and 4.2 actually cut the weight on acceptance (40% to 25%). Prior turn-down
+  rates did not predict who lost pings. The wiki gives no reason beyond proximity "long requested by wide-area responders"; Wen has not replied.
+- Supply reads the availability record and never writes it; no path from Supply to the ping drop found. Open: does gear-away status,
+  time zone (tickets 3050, 3116) or missing leave status (3035, 3143) change who is available; Availability Confidence (Priya, 4.2) never shipped.
+- Draft fix, local and uncommitted to anyone's release: miss penalty 0.03 (record_missed) plus reset_to_neutral in history.py/offer.py/
+  config.py. Untested (no Python on this computer), needs Marcus/Wen sign-off. Floor, weights and 60s wait left alone until response times exist.
+- What the code never does: record response times, forgive late answers, check delivery, log or alert on score changes, guarantee anyone a turn,
+  or say what happens when nobody takes a callout. Whether scores survive a restart is unknown (ask Wen).

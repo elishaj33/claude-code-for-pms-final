@@ -16,7 +16,11 @@ WEIGHT_CAPABILITY_MATCH = 0.15       # unchanged since 4.0
 
 # Points on and off the recent-acceptance score.
 ACCEPTANCE_CREDIT = 0.08
-DECLINE_PENALTY = 0.12
+DECLINE_PENALTY = 0.12               # they turned it down
+# A missed ping (the wait ran out) costs less than a "no". A miss can be
+# a slow phone, not a choice. PROPOSED, not shipped: 0.03 chosen from a
+# replay of 12 Aug to 6 Sep pings; check against response times.
+MISS_PENALTY = 0.03
 
 # The score never goes outside these.
 SCORE_FLOOR = 0.0

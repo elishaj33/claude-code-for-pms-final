@@ -8,6 +8,7 @@ starts at NEUTRAL_SCORE when we take them on.
 from config import (
     ACCEPTANCE_CREDIT,
     DECLINE_PENALTY,
+    MISS_PENALTY,
     SCORE_FLOOR,
     SCORE_CEILING,
 )
@@ -33,10 +34,26 @@ def record_accepted(responder):
 # work, we probably want that to stick until they take work again.
 # Leaving it as-is for now.
 def record_declined(responder):
-    """They turned it down, or we ran out of time waiting. Score goes
-    down. Same either way — we asked and we didn't get a yes.
-    """
+    """They turned it down. Score goes down."""
     _set(responder, recent_acceptance(responder) - DECLINE_PENALTY)
+
+
+def record_missed(responder):
+    """We ran out of time waiting. Score goes down, but by less than a
+    "no": a miss can be a slow phone rather than a choice.
+    """
+    _set(responder, recent_acceptance(responder) - MISS_PENALTY)
+
+
+def reset_to_neutral(responder):
+    """Put one responder back at NEUTRAL_SCORE.
+
+    One-off, for the release that introduces record_missed: responders
+    already pushed to the floor by the old rule are rarely asked, so they
+    have no way to earn the score back. Not called anywhere in this
+    folder; whoever ships the change runs it for the affected responders.
+    """
+    _set(responder, NEUTRAL_SCORE)
 
 
 def _set(responder, value):
