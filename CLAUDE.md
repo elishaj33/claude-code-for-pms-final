@@ -185,3 +185,17 @@ of the volume dip, not the concentration. Unproven; needs Wen Li (ranking) and r
   (-30%), Ashgrove's and Halfmoon's areas, likely explain their milder dips. Callout types were not analysed (free text).
 - Next asks: Ravi for response times (the four vs the rest, before/after 12 Aug), September data, and whether callout
   counting changed on 12 Aug; Wen for the missed-ping threshold, window, and why out-of-area pings were never taken pre-4.2.
+
+- Tickets vs pings by responder: lost-callout tickets (13, all from handlers of the other 12) each follow a specific missed
+  ping within 3 days and begin 12 Aug 15:41; quiet tickets start 17 Aug (about 5 days late) and follow the volume drop, not the
+  miss rate (Undertow, Farlight, Halfmoon, Ashgrove only). Vesper's and Meteor Mite's handlers (Aunt Dot, Kip) filed none, though
+  both lost about two thirds of their pings, so ticket counts say who writes in, not who is affected. Tickets stayed at 22-31/wk
+  while missed pings eased from 40 to 15.
+- The four's first-ping misses (28 of 40) are 17 of 23 in-area and 11 of 17 out-of-area, so it is not just an out-of-area story;
+  they still took 10 of 16 follow-ups. The database has no capability tags and callout text is free-form: tag and callout-type
+  comparisons are not possible from it.
+- Pings before/after 12 Aug: Undertow 75 -> 14 (last taken 17 Aug), Farlight 75 -> 11 (nothing since 28 Aug, last taken 14 Aug),
+  Vesper 86 -> 17 (last taken 17 Aug), Meteor Mite 70 -> 14 (last taken 19 Aug); each missed 4-6 pings in the week from 12 Aug first.
+- Working summary sentence, hedged: the shorter wait made everyone miss more; responders with about 4+ misses in the first week
+  then lost most pings and nearly all they still got were missed; ranking as the cause is inferred, not confirmed.
+- Still open: response times and callout-counting change (Ravi), miss threshold (Wen), calls with Aunt Dot and Kip via Sofia/Nadia.
