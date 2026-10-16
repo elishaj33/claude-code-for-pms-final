@@ -217,3 +217,14 @@ of the volume dip, not the concentration. Unproven; needs Wen Li (ranking) and r
   config.py. Untested (no Python on this computer), needs Marcus/Wen sign-off. Floor, weights and 60s wait left alone until response times exist.
 - What the code never does: record response times, forgive late answers, check delivery, log or alert on score changes, guarantee anyone a turn,
   or say what happens when nobody takes a callout. Whether scores survive a restart is unknown (ask Wen).
+
+### Module 5: brief and prototype for Helen (mid-Oct)
+- Helen's request (05-super-speed/director-request.txt): don't just change a number; show what we'd build, from the view of the person it happens to
+  (Kip, a quiet responder), as a one-pager and ideally something clickable. Built: 05-super-speed/quiet-responder-brief.md (not brief.md) and
+  05-super-speed/prototype.html (handler and responder views, 9 handlers, ranking panels, countdown dial). Prototype untested in a browser.
+- Brief scope: cheaper misses (0.03), out-of-area misses not counted, one-off fresh start, gone-quiet alert and answer-time logging, a read-only
+  "who is next" view for handlers. Left alone: 60s wait, weights, handler control of routing, quotas. Options only: grace window, daily loss cap, delivery check.
+- Eastgate pings before/after 12 Aug: Meteor Mite 62 -> 9 pings, The Gale 76 -> 54, the out-of-area responders (Sgt. Bulwark, Nightwell) 0% taken.
+- Assumptions to confirm with Sofia: the phone ping names the handler, shows area/travel/tags, and what happens after "taken" (nothing documented on
+  what a responder sees or how they learn where to go). Prototype travel times, starting scores and the "7 days" alert are illustrative.
+- Still open: the 2019 TODO author (code shows no name), whether scores survive a restart, Availability Confidence, response times, September data.
